@@ -221,6 +221,7 @@ public class Main {
 
         // 2. start the server
         try {
+            log.info("alfred: starting server", new Throwable("diagnostic"));
             ComponentStarter.startComponent(server).get();
         } catch (InterruptedException ie) {
             Thread.currentThread().interrupt();
