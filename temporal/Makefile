@@ -12,6 +12,7 @@ docker-build/%:
 docker-push/%:
 	@if ! ssh-add -L -q > /dev/null; then echo >&2 'Did you forget to run: eval $$(ssh-agent); ssh-add ~/.ssh/my-private-key?'; exit 1; fi
 	$(DOCKER_BUILD_LOCAL) -f temporal/Dockerfile --target $* --tag $(DOCKER_REGISTRY)/$*:$(DOCKER_IMAGE_TAG) --push .
+	echo $(DOCKER_REGISTRY)/$*:$(DOCKER_IMAGE_TAG)
 
 docker-build: docker-build/bookkeeper-wal
 

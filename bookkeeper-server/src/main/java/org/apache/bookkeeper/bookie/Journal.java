@@ -773,6 +773,8 @@ public class Journal extends BookieCriticalThread implements CheckpointSource {
      */
     @Override
     public void checkpointComplete(Checkpoint checkpoint, boolean compact) throws IOException {
+        LOG.info("alfred: checkpointComplete: {} {} ", checkpoint, compact, new Throwable("diagnostic"));
+
         if (!(checkpoint instanceof LogMarkCheckpoint)) {
             return; // we didn't create this checkpoint, so dont do anything with it
         }

@@ -302,6 +302,7 @@ public class EntryMemTable implements AutoCloseable{
             if (isSizeLimitReached() || (!previousFlushSucceeded.get())) {
                 Checkpoint cp = snapshot();
                 if ((null != cp) || (!previousFlushSucceeded.get())) {
+                    logger.info("alfred: EntryMemTable::addEntry checkpoint {}", cp, new Throwable("diagnostic"));
                     cb.onSizeLimitReached(cp);
                 }
             }

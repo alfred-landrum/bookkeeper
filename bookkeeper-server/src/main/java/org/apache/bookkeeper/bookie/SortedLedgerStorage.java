@@ -312,6 +312,7 @@ public class SortedLedgerStorage
             public void run() {
                 try {
                     LOG.info("Started flushing mem table.");
+                    LOG.info("alfred: onSizeLimitReached scheduler execute checkpoint start {}", cp, new Throwable("diagnostic"));
                     interleavedLedgerStorage.getEntryLogger().prepareEntryMemTableFlush();
                     memTable.flush(SortedLedgerStorage.this);
                     if (interleavedLedgerStorage.getEntryLogger().commitEntryMemTableFlush()) {
@@ -320,6 +321,8 @@ public class SortedLedgerStorage
                 } catch (Exception e) {
                     stateManager.transitionToReadOnlyMode();
                     LOG.error("Exception thrown while flushing skip list cache.", e);
+                } finally {
+                    LOG.info("alfred: onSizeLimitReached scheduler execute checkpoint done {}", cp, new Throwable("diagnostic"));
                 }
             }
         });
